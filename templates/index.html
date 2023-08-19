@@ -1,50 +1,148 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Cafes</title>
+  <title>Cafes</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Center the main content */
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+    }
+
+    th {
+      background-color: #333;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* Image styles */
+    img {
+      margin-right: 5px;
+    }
+
+    .cafe-img {
+      margin-right: 5px;
+      width: 80px;
+      /* Set desired width */
+      height: 80px;
+      /* Set desired height */
+      object-fit: cover;
+      /* Ensures image covers the area without distortion */
+      border-radius: 5px;
+      /* Optional: adds rounded corners to images */
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #4CAF50;
+      /* Green color */
+      color: #fff;
+      padding: 10px 20px;
+      margin: 20px 0;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+      /* Slightly darker green on hover */
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
     <h1>List of Cafes</h1>
-    
+
     <!-- Table to display cafes -->
-    <table border="1">
-        <!-- Table header -->
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Price</th>
-                <th>Sockets</th>
-                <th>Toilet</th>
-                <th>WiFi</th>
-                <th>Calls</th>
-                <th>Seats</th>
-                <th>Map</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <!-- Table body -->
-        <tbody>
-            {% for cafe in cafes %}
-                <tr>
-                    <td><img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" width="50"></td>
-                    <td>{{ cafe.name }}</td>
-                    <td>{{ cafe.location }}</td>
-                    <td>{{ cafe.coffee_price }}</td>
-                    <td>{{ "Yes" if cafe.has_sockets else "No" }}</td>
-                    <td>{{ "Yes" if cafe.has_toilet else "No" }}</td>
-                    <td>{{ "Yes" if cafe.has_wifi else "No" }}</td>
-                    <td>{{ "Yes" if cafe.can_take_calls else "No" }}</td>
-                    <td>{{ cafe.seats }}</td>
-                    <td><a href="{{ cafe.map_url }}" target="_blank">View Map</a></td>
-                    <td><a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}">Delete</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
+    <table>
+      <!-- Table header -->
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Sockets</th>
+          <th>Toilet</th>
+          <th>WiFi</th>
+          <th>Calls</th>
+          <th>Seats</th>
+          <th>Map</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <!-- Table body -->
+      <tbody>
+        {% for cafe in cafes %}
+        <tr>
+          <td><img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" class="cafe-img" width="50"></td>
+          <td>
+            {{ cafe.name }}
+          </td>
+          <td>
+            {{ cafe.location }}
+          </td>
+          <td>
+            {{ cafe.coffee_price }}
+          </td>
+          <td>
+            {{ "Yes" if cafe.has_sockets else "No" }}
+          </td>
+          <td>
+            {{ "Yes" if cafe.has_toilet else "No" }}
+          </td>
+          <td>
+            {{ "Yes" if cafe.has_wifi else "No" }}
+          </td>
+          <td>
+            {{ "Yes" if cafe.can_take_calls else "No" }}
+          </td>
+          <td>
+            {{ cafe.seats }}
+          </td>
+          <td><a href="{{ cafe.map_url }}" target="_blank">View Map</a></td>
+          <td><a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-    
-    <!-- Link to add new cafe -->
-    <a href="{{ url_for('add_cafe') }}">Add Cafe</a>
+
+    <!-- Centered "Add Cafe" button -->
+    <div style="text-align: center;">
+      <a href="{{ url_for('add_cafe') }}" class="button">Add Cafe</a>
+    </div>
+  </div>
 </body>
+
 </html>
