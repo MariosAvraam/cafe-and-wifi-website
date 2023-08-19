@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafes</title>
+</head>
+<body>
+    <h1>List of Cafes</h1>
+    
+    <!-- Table to display cafes -->
+    <table border="1">
+        <!-- Table header -->
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Sockets</th>
+                <th>Toilet</th>
+                <th>WiFi</th>
+                <th>Calls</th>
+                <th>Seats</th>
+                <th>Map</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+            {% for cafe in cafes %}
+                <tr>
+                    <td><img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" width="50"></td>
+                    <td>{{ cafe.name }}</td>
+                    <td>{{ cafe.location }}</td>
+                    <td>{{ cafe.coffee_price }}</td>
+                    <td>{{ "Yes" if cafe.has_sockets else "No" }}</td>
+                    <td>{{ "Yes" if cafe.has_toilet else "No" }}</td>
+                    <td>{{ "Yes" if cafe.has_wifi else "No" }}</td>
+                    <td>{{ "Yes" if cafe.can_take_calls else "No" }}</td>
+                    <td>{{ cafe.seats }}</td>
+                    <td><a href="{{ cafe.map_url }}" target="_blank">View Map</a></td>
+                    <td><a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Link to add new cafe -->
+    <a href="{{ url_for('add_cafe') }}">Add Cafe</a>
+</body>
+</html>
