@@ -27,24 +27,26 @@ def index():
     cafes = result.scalars()
     return render_template('index.html', cafes=cafes)
 
-@app.route('/add_cafe', methods=['POST'])
+@app.route('/add_cafe', methods=['GET', 'POST'])
 def add_cafe():
-    new_cafe = Cafe(
-        name=request.form['name'],
-        map_url=request.form['map_url'],
-        img_url=request.form['img_url'],
-        location=request.form['location'],
-        has_sockets=bool(request.form.get('has_sockets')),
-        has_toilet=bool(request.form.get('has_toilet')),
-        has_wifi=bool(request.form.get('has_wifi')),
-        can_take_calls=bool(request.form.get('can_take_calls')),
-        seats=request.form['seats'],
-        coffee_price=request.form['coffee_price']
-    )
+    if request.method == "POST":
+        new_cafe = Cafe(
+            name=request.form['name'],
+            map_url=request.form['map_url'],
+            img_url=request.form['img_url'],
+            location=request.form['location'],
+            has_sockets=bool(request.form.get('has_sockets')),
+            has_toilet=bool(request.form.get('has_toilet')),
+            has_wifi=bool(request.form.get('has_wifi')),
+            can_take_calls=bool(request.form.get('can_take_calls')),
+            seats=request.form['seats'],
+            coffee_price=request.form['coffee_price']
+        )
 
-    db.session.add(new_cafe)
-    db.session.commit()
-    return redirect(url_for('index'))
+        db.session.add(new_cafe)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add_cafe.html')
 
 @app.route('/delete_cafe/<int:cafe_id>')
 def delete_cafe(cafe_id):
