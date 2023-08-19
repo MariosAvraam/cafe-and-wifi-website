@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from forms import CafeForm
 
 app = Flask(__name__)
 
@@ -29,7 +30,8 @@ def index():
 
 @app.route('/add_cafe', methods=['GET', 'POST'])
 def add_cafe():
-    if request.method == "POST":
+    form = CafeForm()
+    if form.validate_on_submit():
         new_cafe = Cafe(
             name=request.form['name'],
             map_url=request.form['map_url'],
@@ -46,7 +48,7 @@ def add_cafe():
         db.session.add(new_cafe)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('add_cafe.html')
+    return render_template('add_cafe.html', form=form)
 
 @app.route('/delete_cafe/<int:cafe_id>')
 def delete_cafe(cafe_id):
