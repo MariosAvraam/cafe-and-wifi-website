@@ -43,14 +43,16 @@ pip install -r requirements.txt
 ```
 
 5. Initialize the database:
-```bash
-python
+```python
 from app import db
 db.create_all()
 ```
 
 6. Run the application
+```bash
 python app.py
+```
+
 
 The application will start and should be accessible at http://127.0.0.1:5000/.
 
