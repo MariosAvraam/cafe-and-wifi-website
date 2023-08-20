@@ -42,7 +42,7 @@ source venv/bin/activate # On Windows, use 'venv\Scripts\activate'
 pip install -r requirements.txt
 ```
 
-6. Setup the Secret Key:
+5. Setup the Secret Key:
 - Open the app.py file in a text editor.
 
 - Locate the line:
@@ -67,7 +67,7 @@ with app.app_context():
 
 ```
 
-6. Run the application
+7. Run the application
 ```bash
 python app.py
 ```
