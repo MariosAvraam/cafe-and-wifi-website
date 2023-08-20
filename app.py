@@ -1,11 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from forms import CafeForm
+from flask_bootstrap import Bootstrap5
+from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
+app.config['SECRET_KEY'] = getenv("SECRET_KEY")
+Bootstrap5(app)
+
 db = SQLAlchemy(app)
 
 class Cafe(db.Model):
@@ -42,7 +50,7 @@ def add_cafe():
             has_wifi=bool(request.form.get('has_wifi')),
             can_take_calls=bool(request.form.get('can_take_calls')),
             seats=request.form['seats'],
-            coffee_price=request.form['coffee_price']
+            coffee_price='£' + request.form['coffee_price'],
         )
 
         db.session.add(new_cafe)
