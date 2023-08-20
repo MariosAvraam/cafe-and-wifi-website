@@ -33,7 +33,7 @@ cd cafe-and-wifi-website
 
 3. (Optional) Create a virtual environment:
 ```bash
-virtualenv venv
+python -m venv venv
 source venv/bin/activate # On Windows, use 'venv\Scripts\activate'
 ```
 
