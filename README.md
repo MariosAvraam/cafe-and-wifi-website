@@ -43,9 +43,11 @@ pip install -r requirements.txt
 ```
 
 5. Initialize the database:
-```python
+```bash
+python
 from app import db
 db.create_all()
+```
 
 6. Run the application
 python app.py
