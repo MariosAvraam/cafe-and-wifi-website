@@ -7,16 +7,12 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from forms import CafeForm
 from flask_bootstrap import Bootstrap5
-from os import getenv
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
 
 # Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
-app.config['SECRET_KEY'] = getenv("SECRET_KEY")
+app.config['SECRET_KEY'] = 'HERE_GOES_YOUR_SECRET_KEY'
 Bootstrap5(app)
 
 db = SQLAlchemy(app)

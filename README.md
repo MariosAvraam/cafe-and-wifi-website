@@ -42,7 +42,22 @@ source venv/bin/activate # On Windows, use 'venv\Scripts\activate'
 pip install -r requirements.txt
 ```
 
-5. Initialize the database:
+6. Setup the Secret Key:
+- Open the app.py file in a text editor.
+
+- Locate the line:
+```bash
+app.config['SECRET_KEY'] = 'HERE_GOES_YOUR_SECRET_KEY'
+```
+
+- Replace 'HERE_GOES_YOUR_SECRET_KEY' with a unique secret key. You can generate one using
+```bash
+python -c "import os; print(os.urandom(16).hex())"
+```
+
+This command will give you a random key. Copy it and use it to replace 'HERE_GOES_YOUR_SECRET_KEY'.
+
+6. Initialize the database:
 ```bash
 python
 from app import app, db
