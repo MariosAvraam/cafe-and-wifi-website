@@ -32,9 +32,13 @@ class Cafe(db.Model):
 
 @app.route('/')
 def index():
-    result = db.session.execute(db.select(Cafe))
-    cafes = result.scalars()
-    return render_template('index.html', cafes=cafes)
+    search_query = request.args.get('search', '')
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    cafes_query = Cafe.query.filter(Cafe.name.like(f'%{search_query}%'))
+    cafes = cafes_query.paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('index.html', cafes=cafes.items, pagination=cafes)
+
 
 @app.route('/add_cafe', methods=['GET', 'POST'])
 def add_cafe():

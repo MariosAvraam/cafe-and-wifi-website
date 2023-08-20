@@ -17,6 +17,6 @@ class CafeForm(FlaskForm):
     has_toilet = BooleanField('Has Toilet')
     has_wifi = BooleanField('Has WiFi')
     can_take_calls = BooleanField('Can Take Calls')
-    seats = IntegerField('Seats', [validators.DataRequired()])
+    seats = StringField('Seats', [validators.DataRequired()])
     coffee_price = StringField('Coffee Price', [validators.Regexp(r'^\d+(\.\d{1,2})?$', message="Enter a valid price")])
     submit = SubmitField('Add Cafe')
