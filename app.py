@@ -1,3 +1,8 @@
+"""
+Main Flask application for the Cafe Listing Service.
+Handles routes, database configurations, and error handling.
+"""
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from forms import CafeForm
@@ -32,6 +37,7 @@ class Cafe(db.Model):
 
 @app.route('/')
 def index():
+    """Displays a list of cafes with pagination and search functionality."""
     search_query = request.args.get('search', '')
     page = request.args.get('page', 1, type=int)
     per_page = 10
@@ -42,19 +48,21 @@ def index():
 
 @app.route('/add_cafe', methods=['GET', 'POST'])
 def add_cafe():
+    """Handles adding a new cafe to the database."""
     form = CafeForm()
     if form.validate_on_submit():
+        # Create new cafe instance using form data
         new_cafe = Cafe(
-            name=request.form['name'],
-            map_url=request.form['map_url'],
-            img_url=request.form['img_url'],
-            location=request.form['location'],
-            has_sockets=bool(request.form.get('has_sockets')),
-            has_toilet=bool(request.form.get('has_toilet')),
-            has_wifi=bool(request.form.get('has_wifi')),
-            can_take_calls=bool(request.form.get('can_take_calls')),
-            seats=request.form['seats'],
-            coffee_price='£' + request.form['coffee_price'],
+            name=form.data['name'],
+            map_url=form.data['map_url'],
+            img_url=form.data['img_url'],
+            location=form.data['location'],
+            has_sockets=form.data['has_sockets'],
+            has_toilet=form.data['has_toilet'],
+            has_wifi=form.data['has_wifi'],
+            can_take_calls=form.data['can_take_calls'],
+            seats=form.data['seats'],
+            coffee_price='£' + form.data['coffee_price']
         )
 
         db.session.add(new_cafe)
@@ -64,6 +72,7 @@ def add_cafe():
 
 @app.route('/delete_cafe/<int:cafe_id>')
 def delete_cafe(cafe_id):
+    """Deletes the specified cafe based on the provided cafe_id."""
     cafe_to_delete = db.get_or_404(Cafe, cafe_id)
     if cafe_to_delete:
         db.session.delete(cafe_to_delete)

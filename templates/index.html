@@ -4,7 +4,6 @@
 <head>
   <title>Cafes</title>
   <style>
-    /* General styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -12,7 +11,6 @@
       padding: 0;
     }
 
-    /* Center the main content */
     .container {
       max-width: 1000px;
       margin: 50px auto;
@@ -21,13 +19,13 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Table styles */
     table {
       width: 100%;
       border-collapse: collapse;
     }
 
     th,
+
     td {
       border: 1px solid #ddd;
       padding: 8px 12px;
@@ -42,7 +40,6 @@
       background-color: #f2f2f2;
     }
 
-    /* Image styles */
     img {
       margin-right: 5px;
     }
@@ -50,19 +47,14 @@
     .cafe-img {
       margin-right: 5px;
       width: 80px;
-      /* Set desired width */
       height: 80px;
-      /* Set desired height */
       object-fit: cover;
-      /* Ensures image covers the area without distortion */
       border-radius: 5px;
-      /* Optional: adds rounded corners to images */
     }
 
     .button {
       display: inline-block;
       background-color: #4CAF50;
-      /* Green color */
       color: #fff;
       padding: 10px 20px;
       margin: 20px 0;
@@ -76,7 +68,6 @@
 
     .button:hover {
       background-color: #45a049;
-      /* Slightly darker green on hover */
     }
 
     .pagination {
@@ -100,13 +91,14 @@
   <div class="container">
     <h1>List of Cafes</h1>
 
+    <!-- Search Bar -->
     <form method="GET" action="{{ url_for('index') }}" class="search-bar">
       <input type="text" name="search" placeholder="Search cafes...">
       <button type="submit">Search</button>
     </form>
 
 
-    <!-- Table to display cafes -->
+    <!-- Cafe Listings Table -->
     <table>
       <!-- Table header -->
       <thead>
@@ -164,6 +156,8 @@
     <div style="text-align: center;">
       <a href="{{ url_for('add_cafe') }}" class="button">Add Cafe</a>
     </div>
+
+    <!-- Pagination Controls -->
     {% if pagination.has_prev or pagination.has_next %}
     <div class="pagination">
       <!-- Display the "First" link only if we're not on the first page -->

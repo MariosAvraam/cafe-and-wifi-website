@@ -1,3 +1,8 @@
+"""
+Defines forms used in the Flask application.
+Uses WTForms for form definition and validation.
+"""
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, SubmitField, DecimalField, IntegerField, validators
 from wtforms.widgets import TextInput
@@ -9,6 +14,7 @@ class PoundTextInput(TextInput):
         return super(PoundTextInput, self).__call__(field, **kwargs)
 
 class CafeForm(FlaskForm):
+    """Form definition for adding and editing cafes."""
     name = StringField('Name', [validators.InputRequired()])
     map_url = StringField('Map URL', [validators.InputRequired(), validators.URL()])
     img_url = StringField('Image URL', [validators.InputRequired(), validators.URL()])
